@@ -1,0 +1,10 @@
+inherit: 'job://looper-base'
+tools:
+  nodejs: 6.11.1
+  npm: 3.10.10
+flows:
+  default:
+    - call: master-job
+  pr:
+    - call: pr-job
+

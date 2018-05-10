@@ -1,0 +1,26 @@
+[
+  {
+    "scope": "http://127.0.0.1:50000",
+    "method": "GET",
+    "path": "/endpoint1",
+    "body": "",
+    "status": 200,
+    "response": {
+      "id": 0,
+      "replay": true
+    }
+  },
+  {
+    "scope": "http://127.0.0.1:50000",
+    "method": "POST",
+    "path": "/endpoint2",
+    "body": {
+      "someKey": "some value"
+    },
+    "status": 200,
+    "response": {
+      "id": 1,
+      "replay": true
+    }
+  }
+]

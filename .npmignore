@@ -1,0 +1,7 @@
+test/*
+scripts/*
+gulpfile.js
+.looper.yml
+.gitignore
+.eslintrc.js
+.npmignore

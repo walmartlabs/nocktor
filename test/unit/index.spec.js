@@ -33,7 +33,7 @@ const dir = path.join(__dirname, "recorded-data"); // eslint-disable-line no-und
 
 const LIVE_TIMEOUT = 5000;
 
-describe("Nock Recorder", () => {
+describe("Nocktor", () => {
   let requests;
   let mockServer;
 
@@ -211,13 +211,19 @@ describe("Nock Recorder", () => {
   describe("recorder#start() @unit", () => {
     it("will throw an error if the recorder has already been started", () => {
       recorder.start(dir, "foo");
-      expect(() => recorder.start(dir, "foo")).to.throw(/Nock recorder already running/);
+      expect(() => recorder.start(dir, "foo")).to.throw(/Nocktor already running/);
+    });
+
+    it("will throw an error if started with invalid mode", () => {
+      expect(() => recorder.start(dir, "foo", { mode: "foo" }))
+        .to
+        .throw(/Nocktor failure - unexpected mode 'foo'/);
     });
   });
 
   describe("recorder#stop() @unit", () => {
     it("will throw an error if the recorder has not been started", () => {
-      expect(() => recorder.stop()).to.throw(/can\'t stop, nock recorder is not running/);
+      expect(() => recorder.stop()).to.throw(/can\'t stop, Nocktor is not running/);
     });
   });
 
@@ -236,7 +242,7 @@ describe("Nock Recorder", () => {
       recorder.start(dir, "foo");
       recorder.reset();
 
-      expect(() => recorder.stop()).to.throw(/can\'t stop, nock recorder is not running/);
+      expect(() => recorder.stop()).to.throw(/can\'t stop, Nocktor is not running/);
     });
 
     it("enables one to call `recorder.start()` again @unit", () => {
@@ -252,39 +258,62 @@ describe("Nock Recorder", () => {
         recorder.start(dir, "foo", { mode });
         expect(recorder.mode()).to.equal(mode);
         recorder.stop();
+        recorder.start(dir, "foo");
         expect(recorder.mode(), "Mode returns to default").to.equal("replay");
-      });
-    });
-
-    it("should return the value of $NOCK_RECORDER if set", () => {
-      ["live", "replay", "record"].forEach(mode => {
-        process.env.NOCK_RECORDER = mode;
-        expect(recorder.mode()).to.equal(mode);
-        recorder.start(dir, "foo", { mode: "live" });
-        expect(recorder.mode(), "Active mode overrides defaults").to.equal("live");
         recorder.stop();
       });
     });
 
-    it("should return the value of $TEST_MODE if set", () => {
+    it("should return the value of $NOCKTOR_MODE if set", () => {
       ["live", "replay", "record"].forEach(mode => {
-        process.env.TEST_MODE = mode;
+        process.env.NOCKTOR_MODE = mode;
+
+        recorder.start(dir, "foo");
         expect(recorder.mode()).to.equal(mode);
+
+        recorder.stop();
         recorder.start(dir, "foo", { mode: "live" });
         expect(recorder.mode(), "Active mode overrides defaults").to.equal("live");
-        recorder.stop();
-      });
-    });
 
-    it("should give precedence to $NOCK_RECORDER over $TEST_MODE", () => {
-      expect(recorder.mode()).to.equal("replay");
-      process.env.TEST_MODE = "live";
-      process.env.NOCK_RECORDER = "record";
-      expect(recorder.mode()).to.equal("record");
+        recorder.stop();
+        delete process.env.NOCKTOR_MODE;
+
+        recorder.start(dir, "foo");
+        expect(recorder.mode(), "Mode returns to default").to.equal("replay");
+        recorder.stop();
+
+      });
     });
 
     it("should default to 'replay'", () => {
+      delete process.env.NOCKTOR_MODE;
+
+      recorder.start(dir, "foo");
       expect(recorder.mode()).to.equal("replay");
+      recorder.stop();
+    });
+
+    it("should throw if not running", () => {
+      delete process.env.NOCKTOR_MODE;
+      expect(recorder.mode).to.throw(/Nocktor failure - attempt to access mode/);
+    });
+  });
+
+  describe("recorder#getModesEnum() @unit", () => {
+    it("returns object of available modes", () => {
+      expect(recorder.getModesEnum()).to.eql({
+        REPLAY: "replay",
+        LIVE: "live",
+        RECORD: "record",
+        DEFAULT: "replay"
+      });
+    });
+
+    it("returns a copy of the object used internally (not a ref)", () => {
+      const modesOne = recorder.getModesEnum();
+      const modesTwo = recorder.getModesEnum();
+
+      expect(modesOne).to.not.equal(modesTwo);
     });
   });
 });

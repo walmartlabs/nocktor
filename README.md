@@ -36,11 +36,11 @@ describe('Api Tests', () => {
 
 ```sh
 # Test spec against live API
-NOCK_RECORDER=live mocha ./test/api.spec.js --grep "api#fetchUsers()"
+NOCKTOR_MODE=live mocha ./test/api.spec.js --grep "api#fetchUsers()"
 # Test spec against live API, while recording responses to disk
-NOCK_RECORDER=record mocha ./test/api.spec.js --grep "api#fetchUsers()"
+NOCKTOR_MODE=record mocha ./test/api.spec.js --grep "api#fetchUsers()"
 # Test spec against recorded responses
-NOCK_RECORDER=replay mocha ./test/api.spec.js --grep "api#fetchUsers()"
+NOCKTOR_MODE=replay mocha ./test/api.spec.js --grep "api#fetchUsers()"
 # Track recorded responses (mocks) in version control
 git a ./test/recorded-data/api-fetch-users-happy-path-records.json
 ```
@@ -63,7 +63,7 @@ Must call `recorder.stop()` before calling `recorder.start()` again.
 
 `tag: string`: Unique tag which will be used to generate filename for record
 
-`options.mode: ['replay'|'record'|'live']`: Overrides the default mode. Default mode is `replay`, unless overriden by the environment variables `NOCK_RECORDER` or `TEST_MODE`.
+`options.mode: ['replay'|'record'|'live']`: Overrides the default mode. Default mode is `replay`, unless overriden by the environment variable `NOCKTOR_MODE`.
 
 `options.recordReqHeaders: boolean`: Used in `record` mode. If true, tells nock to record request headers. Off be default, since request headers often include timestamps.
 
@@ -85,7 +85,20 @@ Resets nock state & state of recorder.
 
 Get the recorder mode.
 
-Returns the mode uses for the current run if we're in a recording. Returns the current default mode otherwise.
+Returns the mode uses for the current run if we're in a recording.
+Throws an exception if the recorder is not started.
+
+#### `recorder.getModesEnum()`
+
+Returns an object containing the available modes to run Nocktor in:
+```
+{
+  REPLAY: "replay",
+  LIVE: "live",
+  RECORD: "record",
+  DEFAULT: "replay"
+}
+```
 
 ## But Why?
 
@@ -101,7 +114,7 @@ Finally, Nock is just much more pleasant to use with Nocktor - or at least that 
 
 ## Attributions
 This module was born inside @walmartlabs, and commit history was wiped out when we ported it to a public module.
-These fine engineers worked very hard on this module, and they should get credit for it.
+These following engineers worked very hard on this module, and they should get credit for it.
 
 ### Ian Walker Sperber (@ianwsperber) -
 Original inventor and author of this module. Also a contributor to Nock.

@@ -2,7 +2,7 @@ Nocktor
 ====
 (Nock doctor)
 
-A prescription for using Nock's recording capabilities to heal your tests' ailing mock data. Use Nocktor to create a single set of tests that can be run in `live`, `record` or `replay` mode. This library applies functional testing best practices from @walmartlabs to provide a simple API for recording and replaying mock data. 
+A prescription for using Nock's recording capabilities to heal your tests' ailing mock data. Use Nocktor to create a single set of tests that can be run in `live`, `record` or `replay` mode. This library applies functional testing best practices from @walmartlabs to provide a simple API for recording and replaying mock data.
 
 ## Example
 
@@ -39,7 +39,7 @@ describe('Api Tests', () => {
 NOCK_RECORDER=live mocha ./test/api.spec.js --grep "api#fetchUsers()"
 # Test spec against live API, while recording responses to disk
 NOCK_RECORDER=record mocha ./test/api.spec.js --grep "api#fetchUsers()"
-# Test spec against recorded responses 
+# Test spec against recorded responses
 NOCK_RECORDER=replay mocha ./test/api.spec.js --grep "api#fetchUsers()"
 # Track recorded responses (mocks) in version control
 git a ./test/recorded-data/api-fetch-users-happy-path-records.json
@@ -97,4 +97,23 @@ For more complex request flows the user may still access nock directly so there'
 
 Nocktor introduces little functionality of its own, but provides a set of useful helper functions that reduce boilerplate and dictate test design patterns that have proven quite successful for us.
 
-Finally, nock is just much more pleasant to use with Nocktor - or at least that is what we have found at WalmartLabs!
+Finally, Nock is just much more pleasant to use with Nocktor - or at least that is what we have found at WalmartLabs!
+
+## Attributions
+This module was born inside @walmartlabs, and commit history was wiped out when we ported it to a public module.
+These fine engineers worked very hard on this module, and they should get credit for it.
+
+### Ian Walker Sperber (@ianwsperber) -
+Original inventor and author of this module. Also a contributor to Nock.
+
+### Christopher Crewdson (@chriscrewdson) -
+Current maintainer and responsible for porting this library for public use.
+
+### Kyle Schatler (@kschat) -
+Past contributor when this module was internal
+
+### Kevin Stephens (@kevinmstephens) -
+Past contributor when this module was internal
+
+### Steve Slayden (@steveslayden) -
+Past contributor when this module was internal

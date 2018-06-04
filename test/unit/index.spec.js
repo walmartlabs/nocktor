@@ -252,14 +252,14 @@ describe("Nocktor", () => {
     });
   });
 
-  describe("recorder#mode() @unit", () => {
+  describe("recorder#getgetMode() @unit", () => {
     it("should return the active mode if running", () => {
       ["live", "replay", "record"].forEach(mode => {
         recorder.start(dir, "foo", { mode });
-        expect(recorder.mode()).to.equal(mode);
+        expect(recorder.getMode()).to.equal(mode);
         recorder.stop();
         recorder.start(dir, "foo");
-        expect(recorder.mode(), "Mode returns to default").to.equal("replay");
+        expect(recorder.getMode(), "Mode returns to default").to.equal("replay");
         recorder.stop();
       });
     });
@@ -269,17 +269,17 @@ describe("Nocktor", () => {
         process.env.NOCKTOR_MODE = mode;
 
         recorder.start(dir, "foo");
-        expect(recorder.mode()).to.equal(mode);
+        expect(recorder.getMode()).to.equal(mode);
 
         recorder.stop();
         recorder.start(dir, "foo", { mode: "live" });
-        expect(recorder.mode(), "Active mode overrides defaults").to.equal("live");
+        expect(recorder.getMode(), "Active mode overrides defaults").to.equal("live");
 
         recorder.stop();
         delete process.env.NOCKTOR_MODE;
 
         recorder.start(dir, "foo");
-        expect(recorder.mode(), "Mode returns to default").to.equal("replay");
+        expect(recorder.getMode(), "Mode returns to default").to.equal("replay");
         recorder.stop();
 
       });
@@ -289,13 +289,13 @@ describe("Nocktor", () => {
       delete process.env.NOCKTOR_MODE;
 
       recorder.start(dir, "foo");
-      expect(recorder.mode()).to.equal("replay");
+      expect(recorder.getMode()).to.equal("replay");
       recorder.stop();
     });
 
     it("should throw if not running", () => {
       delete process.env.NOCKTOR_MODE;
-      expect(recorder.mode).to.throw(/Nocktor failure - attempt to access mode/);
+      expect(recorder.getMode).to.throw(/Nocktor failure - attempt to access mode/);
     });
   });
 

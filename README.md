@@ -81,7 +81,7 @@ Calls `recorder.reset()` internally.
 
 Resets nock state & state of recorder.
 
-#### `recorder.mode()`
+#### `recorder.getMode()`
 
 Get the recorder mode.
 

@@ -316,4 +316,10 @@ describe("Nocktor", () => {
       expect(modesOne).to.not.equal(modesTwo);
     });
   });
+
+  describe("recorder#nock @unit", () => {
+    it("exports instance of nock used internally", () => {
+      expect(recorder.nock).to.equal(nock);
+    });
+  });
 });

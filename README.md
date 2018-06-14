@@ -182,7 +182,7 @@ These following engineers worked very hard on this module, and they should get c
 Original inventor and author of this module. Also a contributor to Nock.
 
 ### Christopher Crewdson (@chriscrewdson) -
-Current maintainer and responsible for porting this library for public use.
+Current co-maintainer and responsible for porting this library for public use.
 
 ### Kyle Schatler (@kschat) -
 Past contributor when this module was internal
@@ -192,3 +192,6 @@ Past contributor when this module was internal
 
 ### Steve Slayden (@steveslayden) -
 Past contributor when this module was internal
+
+### Dylan Wood (@dylancwood) -
+Current co-maintainer and responsible for bringing this library to the public

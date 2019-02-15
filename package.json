@@ -1,7 +1,7 @@
 {
   "name": "@walmartlabs/nocktor",
   "description": "nocktor",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "homepage": "https://github.com/walmartlabs/nocktor",
   "bugs": {
     "url": "https://github.com/walmartlabs/nocktor/issues"

@@ -4,6 +4,9 @@ Nocktor
 
 A prescription for using Nock's recording capabilities to heal your tests' ailing mock data. Use Nocktor to create a single set of tests that can be run in `live`, `record` or `replay` mode. This library applies functional testing best practices from @walmartlabs to provide a simple API for recording and replaying mock data.
 
+[![Build Status](https://travis-ci.org/walmartlabs/nocktor.svg?branch=master)](https://travis-ci.org/walmartlabs/nocktor)
+
+## Install
 ```
 npm install @walmartlabs/nocktor
 ```

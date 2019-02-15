@@ -8,6 +8,7 @@
   },
   "repository": "git://github.com/walmartlabs/nocktor.git",
   "main": "index.js",
+  "types": "index.d.ts",
   "engines": {
     "node": ">=4.0.0",
     "npm": ">=3.x.x"
